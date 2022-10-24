@@ -1,6 +1,7 @@
 package br.com.microservice.cliente.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class ClientService {
 	@Autowired
 	private ClientRepository clientRepository;
 	
+	
 	public List<Client> listar(){
 		return (List<Client>) clientRepository.findAll();
 	}
@@ -36,9 +38,11 @@ public class ClientService {
 	}
 	@Transactional
 	public ResponseEntity<Client> update(Long clienteId, Client cliente) {
+	
 		if(!clientRepository.existsById(clienteId)) {
 			throw new clientNotFoudException("Cliente de id: "+ clienteId + " não encontrado.");
 		}
+				
 		cliente.setId(clienteId);
 		cliente = clientRepository.save(cliente);
 		return ResponseEntity.ok().build();

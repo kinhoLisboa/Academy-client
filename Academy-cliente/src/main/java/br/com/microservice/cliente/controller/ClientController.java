@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.microservice.cliente.model.Client;
+import br.com.microservice.cliente.model.Endereco;
 import br.com.microservice.cliente.service.ClientService;
+import br.com.microservice.cliente.service.EnderecoService;
 
 @RestController
 @RequestMapping("/cliente")
@@ -26,6 +28,8 @@ public class ClientController {
 	
 	@Autowired
 	private ClientService clientService;
+	@Autowired
+	private EnderecoService enderecoService;
 	
 	@GetMapping
 	public List<Client> listaCliente(){
@@ -51,6 +55,10 @@ public class ClientController {
 	@DeleteMapping("/{clienteId}")
 	public ResponseEntity<Void> excluir(@PathVariable Long clienteId)	{
 		return clientService.deletar(clienteId);
+	}
+	
+	public Endereco atualizar ( Long enderecoId, Endereco endereco) {
+		return enderecoService.update(enderecoId, endereco);
 	}
 
 }
